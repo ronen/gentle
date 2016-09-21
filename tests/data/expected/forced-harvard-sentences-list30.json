@@ -622,15 +622,15 @@
             "endOffset": 134,
             "phones": [
                 {
-                    "duration": 0.08,
+                    "duration": 0.09,
                     "phone": "dh_B"
                 },
                 {
-                    "duration": 0.11,
+                    "duration": 0.12,
                     "phone": "iy_E"
                 }
             ],
-            "start": 18,
+            "start": 17.98,
             "startOffset": 131,
             "word": "the"
         },
@@ -1373,15 +1373,15 @@
         {
             "alignedWord": "his",
             "case": "success",
-            "end": 37.8,
+            "end": 37.800000000000004,
             "endOffset": 294,
             "phones": [
                 {
-                    "duration": 0.14,
+                    "duration": 0.11,
                     "phone": "hh_B"
                 },
                 {
-                    "duration": 0.06,
+                    "duration": 0.07,
                     "phone": "ih_I"
                 },
                 {
@@ -1389,29 +1389,37 @@
                     "phone": "z_E"
                 }
             ],
-            "start": 37.519999999999996,
+            "start": 37.540000000000006,
             "startOffset": 291,
             "word": "His"
         },
         {
             "alignedWord": "shirt",
             "case": "success",
-            "end": 37.879999999999995,
+            "end": 38.190000000000005,
             "endOffset": 300,
             "phones": [
                 {
-                    "duration": 0.08,
+                    "duration": 0.16,
                     "phone": "sh_B"
+                },
+                {
+                    "duration": 0.15,
+                    "phone": "er_I"
+                },
+                {
+                    "duration": 0.08,
+                    "phone": "t_E"
                 }
             ],
-            "start": 37.8,
+            "start": 37.800000000000004,
             "startOffset": 295,
             "word": "shirt"
         },
         {
             "alignedWord": "was",
             "case": "success",
-            "end": 38.459999999999994,
+            "end": 38.46000000000001,
             "endOffset": 304,
             "phones": [
                 {
@@ -1427,14 +1435,14 @@
                     "phone": "z_E"
                 }
             ],
-            "start": 38.22,
+            "start": 38.220000000000006,
             "startOffset": 301,
             "word": "was"
         },
         {
             "alignedWord": "clean",
             "case": "success",
-            "end": 39.05,
+            "end": 39.050000000000004,
             "endOffset": 310,
             "phones": [
                 {
@@ -1454,41 +1462,41 @@
                     "phone": "n_E"
                 }
             ],
-            "start": 38.459999999999994,
+            "start": 38.46,
             "startOffset": 305,
             "word": "clean"
         },
         {
             "alignedWord": "but",
             "case": "success",
-            "end": 39.309999999999995,
+            "end": 39.300000000000004,
             "endOffset": 314,
             "phones": [
                 {
-                    "duration": 0.12,
+                    "duration": 0.11,
                     "phone": "b_B"
                 },
                 {
-                    "duration": 0.03,
+                    "duration": 0.04,
                     "phone": "ah_I"
                 },
                 {
-                    "duration": 0.08,
+                    "duration": 0.07,
                     "phone": "t_E"
                 }
             ],
-            "start": 39.08,
+            "start": 39.080000000000005,
             "startOffset": 311,
             "word": "but"
         },
         {
             "alignedWord": "one",
             "case": "success",
-            "end": 39.629999999999995,
+            "end": 39.63,
             "endOffset": 318,
             "phones": [
                 {
-                    "duration": 0.14,
+                    "duration": 0.15,
                     "phone": "w_B"
                 },
                 {
@@ -1500,14 +1508,14 @@
                     "phone": "n_E"
                 }
             ],
-            "start": 39.309999999999995,
+            "start": 39.300000000000004,
             "startOffset": 315,
             "word": "one"
         },
         {
             "alignedWord": "button",
             "case": "success",
-            "end": 39.879999999999995,
+            "end": 39.88,
             "endOffset": 325,
             "phones": [
                 {
@@ -1527,7 +1535,7 @@
                     "phone": "ah_I"
                 }
             ],
-            "start": 39.629999999999995,
+            "start": 39.63,
             "startOffset": 319,
             "word": "button"
         },
