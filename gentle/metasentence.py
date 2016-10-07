@@ -19,6 +19,12 @@ def kaldi_normalize(word, vocab):
         norm = '[oov]'
     return norm
 
+KALDI_BRACKET_WORDS = [
+        '[laughter]',
+        '[noise]',
+        '[oov]'
+        ]
+
 class MetaSentence:
     """Maintain two parallel representations of a sentence: one for
     Kaldi's benefit, and the other in human-legible form.
@@ -33,12 +39,21 @@ class MetaSentence:
 
         self._tokenize()
 
+
     def _tokenize(self):
         self._seq = []
         for m in re.finditer(ur'(\w|\’\w|\'\w)+', self.raw_sentence, re.UNICODE):
             start, end = m.span()
             word = m.group().encode('utf-8')
+            if m.string[start-1] == '[' and m.string[end] == ']':
+                bracketed = '[' + word + ']'
+                if bracketed in KALDI_BRACKET_WORDS:
+                    word = bracketed
+                    start -= 1
+                    end += 1
+
             token = kaldi_normalize(word, self.vocab)
+
             self._seq.append({
                 "start": start, # as unicode codepoint offset
                 "end": end, # as unicode codepoint offset
