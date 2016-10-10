@@ -1,8 +1,8 @@
 import logging
 import os
 
-from util.paths import get_resource, ENV_VAR
-from gentle import metasentence
+from . import metasentence
+from paths import get_resource
 
 class Resources():
 
@@ -21,5 +21,3 @@ class Resources():
 
         with open(os.path.join(self.proto_langdir, "graphdir/words.txt")) as fh:
             self.vocab = metasentence.load_vocabulary(fh)
-
-

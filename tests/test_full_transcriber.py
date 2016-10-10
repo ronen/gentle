@@ -16,8 +16,7 @@ class TestFullTranscriber:
 
         expected = gentle.Transcription.from_jsonfile(expectedfile)
 
-        resources = gentle.Resources()
-        transcriber = gentle.FullTranscriber(resources)
+        transcriber = gentle.FullTranscriber()
 
         assert transcriber.available # verify language model is loaded
 

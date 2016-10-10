@@ -21,10 +21,9 @@
 #include "hypothesizer.h"
 #include "rpc.h"
 
-const int arate = 8000;
-
 void ConfigFeatureInfo(kaldi::OnlineNnet2FeaturePipelineInfo& info,
-                       std::string ivector_model_dir) {
+                       std::string ivector_model_dir,
+                       int arate) {
   // online_nnet2_decoding.conf
   info.feature_type = "mfcc";
 
@@ -71,14 +70,14 @@ void ConfigEndpoint(kaldi::OnlineEndpointConfig& config) {
 }
 
 void usage() {
-  fprintf(stderr, "usage: standard_kaldi nnet_dir hclg_path proto_lang_dir\n");
+  fprintf(stderr, "usage: standard_kaldi nnet_dir hclg_path proto_lang_dir arate\n");
 }
 
 int main(int argc, char* argv[]) {
   using namespace kaldi;
   using namespace fst;
 
-  if (argc != 4) {
+  if (argc != 5) {
     usage();
     return EXIT_FAILURE;
   }
@@ -86,6 +85,7 @@ int main(int argc, char* argv[]) {
   const string nnet_dir = argv[1];
   const string fst_rxfilename = argv[2];
   const string proto_lang_dir = argv[3];
+  const int arate = stoi(argv[4]);
 
   const string ivector_model_dir = nnet_dir + "/ivector_extractor";
   const string nnet2_rxfilename = proto_lang_dir + "/modeldir/final.mdl";
@@ -99,7 +99,7 @@ int main(int argc, char* argv[]) {
   std::cerr << "Loading...\n";
 
   OnlineNnet2FeaturePipelineInfo feature_info;
-  ConfigFeatureInfo(feature_info, ivector_model_dir);
+  ConfigFeatureInfo(feature_info, ivector_model_dir, arate);
   OnlineNnet2DecodingConfig nnet2_decoding_config;
   ConfigDecoding(nnet2_decoding_config);
   OnlineEndpointConfig endpoint_config;

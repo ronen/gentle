@@ -17,8 +17,7 @@ class TestForcedAligner:
         expected = gentle.Transcription.from_jsonfile(expectedfile)
         assert transcript == expected.transcript # test data consistency check
 
-        resources = gentle.Resources()
-        aligner = gentle.ForcedAligner(resources, transcript)
+        aligner = gentle.ForcedAligner(transcript)
 
         logger = logging.getLogger(request.node.name)
         handler = logging.handlers.MemoryHandler(sys.maxint)

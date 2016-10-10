@@ -88,7 +88,6 @@ class MultiThreadedTranscriber:
 if __name__=='__main__':
     # full transcription
     from Queue import Queue
-    from util import ffmpeg
     from gentle import standard_kaldi
 
     import sys

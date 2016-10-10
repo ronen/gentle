@@ -12,7 +12,7 @@ import shutil
 import uuid
 import wave
 
-from util.paths import get_resource, get_datadir
+from paths import get_resource, get_datadir
 from util.cyst import Insist
 
 import gentle
