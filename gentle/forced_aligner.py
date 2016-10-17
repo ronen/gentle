@@ -95,14 +95,16 @@ class AdjacencyOptimizer():
         return None if j == i else j
 
     def tend(self, i):
-        if (i < 0): return 0
-        if self.words[i].success(): return self.words[i].end
-        return self.tend(i-1)
+        for word in reversed(self.words[:i]):
+            if word.success():
+                return word.end
+        return 0
 
     def tstart(self, i):
-        if (i >= len(self.words)): return self.duration
-        if self.words[i].success(): return self.words[i].start
-        return self.tend(i+1)
+        for word in self.words[i:]:
+            if word.success():
+                return word.start
+        return self.duration
 
     def find_subseq(self, i, j, p, n):
         for k in range(i, j-n+1):
@@ -122,11 +124,11 @@ class AdjacencyOptimizer():
         if side == "left":
             p, q = (i-n, i)
             if p < 0: return False
-            opp_gap = self.tstart(p) - self.tend(p-1)
+            opp_gap = self.tstart(p) - self.tend(p)
         else:
             p, q = (j, j+n)
             if q > len(self.words): return False
-            opp_gap = self.tstart(q) - self.tend(q-1)
+            opp_gap = self.tstart(q) - self.tend(q)
 
         # is there a matching subsequence?
         k = self.find_subseq(i, j, p, n)
@@ -134,7 +136,7 @@ class AdjacencyOptimizer():
 
         # if the opposite gap isn't bigger than the sequence gap, no benefit to
         # potential swap
-        seq_gap = self.tstart(j) - self.tend(i-1)
+        seq_gap = self.tstart(j) - self.tend(i)
         if opp_gap <= seq_gap: return False
 
         # swap subsequences at p and k
