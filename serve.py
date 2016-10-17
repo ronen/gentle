@@ -12,10 +12,10 @@ import shutil
 import uuid
 import wave
 
-from paths import get_resource, get_datadir
 from util.cyst import Insist
 
 import gentle
+from gentle.paths import get_resource, get_datadir
 
 class TranscriptionStatus(Resource):
     def __init__(self, status_dict):
@@ -31,9 +31,8 @@ class Transcriber():
         self.data_dir = data_dir
         self.nthreads = nthreads
         self.ntranscriptionthreads = ntranscriptionthreads
-        self.resources = gentle.Resources()
 
-        self.full_transcriber = gentle.FullTranscriber(self.resources, nthreads=ntranscriptionthreads)
+        self.full_transcriber = gentle.FullTranscriber(nthreads=ntranscriptionthreads)
         self._status_dicts = {}
 
     def get_status(self, uid):
@@ -90,7 +89,7 @@ class Transcriber():
                 status[k] = v
 
         if len(transcript.strip()) > 0:
-            trans = gentle.ForcedAligner(self.resources, transcript, nthreads=self.nthreads, **kwargs)
+            trans = gentle.ForcedAligner(transcript, nthreads=self.nthreads, **kwargs)
         elif self.full_transcriber.available:
             trans = self.full_transcriber
         else:
