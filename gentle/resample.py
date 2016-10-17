@@ -5,7 +5,8 @@ import tempfile
 from contextlib import contextmanager
 
 
-from util.paths import get_binary
+from . import config
+from .paths import get_binary
 
 FFMPEG = get_binary("ffmpeg")
 
@@ -20,7 +21,7 @@ def resample(infile, outfile):
                             '-loglevel', 'panic',
                             '-y',
                             '-i', infile,
-                            '-ac', '1', '-ar', '8000',
+                            '-ac', '1', '-ar', str(config.arate),
                             '-acodec', 'pcm_s16le',
                             outfile])
 

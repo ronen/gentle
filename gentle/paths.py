@@ -4,7 +4,7 @@ import logging
 import shutil
 import sys
 
-ENV_VAR = 'GENTLE_RESOURCES_ROOT'
+from . import config
 
 class SourceResolver:
     def __init__(self):
@@ -18,7 +18,7 @@ class SourceResolver:
             return name
 
     def get_resource(self, name):
-        root = os.environ.get(ENV_VAR) or self.project_root
+        root = os.environ.get(config.resources_env_var) or self.project_root
         return os.path.join(root, name)
 
     def get_datadir(self, name):

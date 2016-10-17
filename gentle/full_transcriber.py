@@ -1,18 +1,19 @@
 import os
 
-from gentle import kaldi_queue
-from gentle import transcription
-from gentle.transcriber import MultiThreadedTranscriber
-from gentle.transcription import Transcription
+from . import kaldi_queue
+from . import transcription
+from .transcriber import MultiThreadedTranscriber
+from .transcription import Transcription
+from . import config
 
 class FullTranscriber():
 
-    def __init__(self, resources, nthreads=2):
+    def __init__(self, nthreads=2):
         self.available = False
         if nthreads <= 0: return
-        if not os.path.exists(resources.full_hclg_path): return
+        if not os.path.exists(config.resources.full_hclg_path): return
 
-        queue = kaldi_queue.build(resources, nthreads=nthreads)
+        queue = kaldi_queue.build(nthreads=nthreads)
         self.mtt = MultiThreadedTranscriber(queue, nthreads=nthreads)
         self.available = True
 

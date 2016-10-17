@@ -12,6 +12,9 @@ parser.add_argument(
         '--nthreads', default=multiprocessing.cpu_count(), type=int,
         help='number of alignment threads')
 parser.add_argument(
+        '--arate', default=8000, type=int,
+        help='audio sampling rate')
+parser.add_argument(
         '-o', '--output', metavar='output', type=str, 
         help='output filename')
 parser.add_argument(
@@ -46,12 +49,13 @@ def on_progress(p):
 with open(args.txtfile) as fh:
     transcript = fh.read()
 
-resources = gentle.Resources()
-logging.info("converting audio to 8K sampled wav")
+gentle.config.arate=args.arate
+
+logging.info("converting audio to %d sampled wav" % args.arate)
 
 with gentle.resampled(args.audiofile) as wavfile:
     logging.info("starting alignment")
-    aligner = gentle.ForcedAligner(resources, transcript, nthreads=args.nthreads, disfluency=args.disfluency, conservative=args.conservative, disfluencies=disfluencies)
+    aligner = gentle.ForcedAligner(transcript, nthreads=args.nthreads, disfluency=args.disfluency, conservative=args.conservative, disfluencies=disfluencies)
     result = aligner.transcribe(wavfile, progress_cb=on_progress, logging=logging)
 
 fh = open(args.output, 'w') if args.output else sys.stdout

@@ -6,19 +6,18 @@ import subprocess
 import tempfile
 import wave
 
-from util.paths import get_binary
+from paths import get_binary
 from gentle.rpc import RPCProtocol
-from gentle.resources import Resources
 
 EXECUTABLE_PATH = get_binary("ext/standard_kaldi")
 
 class Kaldi(object):
     '''Kaldi spawns a standard_kaldi subprocess and provides a
     Python wrapper for communicating with it.'''
-    def __init__(self, nnet_dir, hclg_path, proto_langdir):
+    def __init__(self, nnet_dir, hclg_path, proto_langdir, arate):
         self.proto_langdir = proto_langdir
         devnull = open(os.devnull, 'w')
-        cmd = [EXECUTABLE_PATH, nnet_dir, hclg_path, proto_langdir]
+        cmd = [EXECUTABLE_PATH, nnet_dir, hclg_path, proto_langdir, str(arate)]
         self._subprocess = subprocess.Popen(
             cmd,
             stdin=subprocess.PIPE,
@@ -68,10 +67,10 @@ def main():
         nnet_dir = sys.argv[3]
         graph_dir = sys.argv[4]
         proto_langdir = sys.argv[5]
-        k = Kaldi(nnet_dir, graph_dir, proto_langdir)
+        k = Kaldi(nnet_dir, graph_dir, proto_langdir, 8000)
     else:
-        resources = Resources()
-        k = Kaldi(resources.nnet_gpu_path, resources.full_hclg_path, resources.proto_langdir)
+        resources = config.resources
+        k = Kaldi(resources.nnet_gpu_path, resources.full_hclg_path, resources.proto_langdir, 8000)
 
     words = None
     for words in k.transcribe_progress(infile, batch_size=1):
