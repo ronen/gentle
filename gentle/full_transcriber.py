@@ -17,7 +17,7 @@ class FullTranscriber():
         self.available = True
 
     def transcribe(self, wavfile, progress_cb=None, logging=None):
-        words = self.mtt.transcribe(wavfile, progress_cb=progress_cb)
+        words, duration = self.mtt.transcribe(wavfile, progress_cb=progress_cb)
         return self.make_transcription_alignment(words)
 
     @staticmethod
@@ -27,7 +27,7 @@ class FullTranscriber():
         words = []
         for t_wd in trans:
             word = transcription.Word(
-                case="success",
+                case=transcription.Word.SUCCESS,
                 startOffset=len(transcript),
                 endOffset=len(transcript) + len(t_wd.word),
                 word=t_wd.word,

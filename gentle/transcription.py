@@ -6,6 +6,10 @@ from collections import defaultdict
 
 class Word:
 
+    SUCCESS = 'success'
+    NOT_FOUND_IN_AUDIO = 'not-found-in-audio'
+    NOT_FOUND_IN_TRANSCRIPT = 'not-found-in-transcript'
+
     def __init__(self, case=None, startOffset=None, endOffset=None, word=None, alignedWord=None, phones=None, start=None, end=None, duration=None):
         self.case = case
         self.startOffset = startOffset
@@ -22,6 +26,11 @@ class Word:
             elif duration is None:
                 self.duration = end - start
 
+    def success(self):
+        return self.case == Word.SUCCESS
+
+    def not_found_in_audio(self):
+        return self.case == Word.NOT_FOUND_IN_AUDIO
 
     def as_dict(self, without=None):
         return { key:val for key, val in self.__dict__.iteritems() if (val is not None) and (key != without)}
@@ -45,6 +54,15 @@ class Word:
             self.endOffset += offset
 
         return self # for easy chaining
+
+    def swap_alignment(self, other):
+        '''Swaps the alignment info of two words, but does not swap the offset'''
+        self.case, other.case = other.case, self.case
+        self.alignedWord, other.alignedWord = other.alignedWord, self.alignedWord
+        self.phones, other.phones = other.phones, self.phones
+        self.start, other.start = other.start, self.start
+        self.end, other.end = other.end, self.end
+        self.duration, other.duration = other.duration, self.duration
 
     def corresponds(self, other):
         '''Returns true if self and other refer to the same word, at the same position in the audio (within a small tolerance)'''
@@ -98,7 +116,7 @@ class Transcription:
         buf = io.BytesIO()
         w = csv.writer(buf)
         for X in self.words:
-            if X.case not in ("success", "not-found-in-audio"):
+            if X.case not in (Word.SUCCESS, Word.NOT_FOUND_IN_AUDIO):
                 continue
             row = [X.word,
                 X.alignedWord,
