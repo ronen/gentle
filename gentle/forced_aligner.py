@@ -140,7 +140,6 @@ class AdjacencyOptimizer():
         if opp_gap <= seq_gap: return False
 
         # swap subsequences at p and k
-        print("**** swapping %d words %s of [%d:%d] '%s'" % (n, side, i, j, " ".join([w.word for w in self.words[i:j]])))
         for m in range(0, n):
             self.words[k+m].swap_alignment(self.words[p+m])
 
