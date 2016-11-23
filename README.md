@@ -1,3 +1,16 @@
+This is my fork of [Gentle](https://github.com/lowerquality/gentle).  It has some tweaks relative to the original  
+
+* A test suite (results tend to be platform-specific though)
+* "AdjacencyOptimizer" to mimize some obscure alignment issues
+* Support for passing bracketed words in transcript down to kaldi.  E.g. `[laughter]`, `[noise]`
+* Discard words adjacent to cut points between chunks, since they're likely to be erroneous identifications of part of a word that was split at the cut.
+* Changes to configuration mechanism
+* Minor code cleanups
+
+Some of these have been submitted as PR's to the origin.  Others I'm happy to submit too, but require earlier PRs to have been merged due to code changes.
+
+---
+
 # Gentle
 **Robust yet lenient forced-aligner built on Kaldi. A tool for aligning speech with text.**
 
